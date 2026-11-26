@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Apple Obsidian Black Floating Navigation Dock:
+    Floating navigation dock background (glass capsule):
     - Ambient restrained base shadow
-    - Solid Obsidian body with fine Apple-grade edge
+    - Glass surface body with a hairline edge
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Ambient dark base shadow -->
@@ -13,7 +13,7 @@
         </shape>
     </item>
 
-    <!-- Solid Apple Obsidian body with fine outline -->
+    <!-- Glass surface body with a hairline outline -->
     <item
         android:bottom="1dp"
         android:left="0.5dp"

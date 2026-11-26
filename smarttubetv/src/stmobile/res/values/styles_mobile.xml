@@ -26,15 +26,17 @@
     <style name="Theme.NewTube" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/mobile_color_primary</item>
         <item name="colorPrimaryDark">@color/mobile_color_primary_dark</item>
-        <!-- Selection controls (checkbox, radio, switch, text caret) and any untinted
-             indeterminate ProgressBar read the accent. Left at the framework default this
-             was Material pink on a black-and-red app: the whole settings screen - section
-             headers, ticks, radio dots - came out #FF4081. Monochrome instead, per the
-             "subtle states, no tints" rule; red stays the brand/playback colour and the
-             one accent tint left is the cast-connected icon. -->
-        <item name="colorAccent">@color/mobile_color_on_surface</item>
-        <item name="colorSecondary">@color/mobile_color_on_surface</item>
-        <item name="colorControlActivated">@color/mobile_color_on_surface</item>
+        <item name="colorOnPrimary">@color/yoo_on_accent</item>
+        <!-- YOOTOOB(theme): selection controls (checkbox, radio, switch, text caret) and any
+             untinted indeterminate ProgressBar read the accent, so "on" and "chosen" look the same
+             everywhere. It used to be monochrome ink because the old accent was the playback red;
+             the violet is reserved for state, so it can carry it. Destructive actions use
+             yoo_danger, never the accent. Before any of this it was the framework default, Material
+             pink (#FF4081) - don't let the attributes fall back to it. -->
+        <item name="colorAccent">@color/yoo_accent</item>
+        <item name="colorSecondary">@color/yoo_accent</item>
+        <item name="colorOnSecondary">@color/yoo_on_accent</item>
+        <item name="colorControlActivated">@color/yoo_accent</item>
         <item name="android:colorBackground">@color/mobile_color_background</item>
         <item name="colorSurface">@color/mobile_color_surface</item>
         <item name="colorOnSurface">@color/mobile_color_on_surface</item>
@@ -282,7 +284,7 @@
     </style>
 
     <style name="MobileAlertDialogButtonDestructive" parent="MobileAlertDialogButton">
-        <item name="android:textColor">@color/mobile_color_primary</item>
+        <item name="android:textColor">@color/yoo_danger</item>
     </style>
 
     <!-- Pairing is a neutral action, with the same surface and typography as the cast sheet. -->

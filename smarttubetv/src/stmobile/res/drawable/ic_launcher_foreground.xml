@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  NewTube adaptive-icon foreground (stmobile flavor).
-
-  The NewTube "arch" mark: a lowercase-n arch (which also reads as a
-  tunnel/tube), white, optically centred inside the 66x66 adaptive safe zone (nudged 2 units up: the arch is bottom-heavy, so geometric centring reads low)
-  (viewport 108, safe area ~21..87) so no launcher mask clips it.
-  The stroke matches the fill and only softens the corners.
-  Deliberately NOT a play triangle — see docs/gtm + legal notes.
+  YooToob adaptive-icon foreground (stmobile flavor): the two-ring "oo" mark, white and spark.
+  Inside the 66-unit safe zone (viewport 108, centre 54): the rings span x 26..82, y 38..70, so
+  no launcher mask clips them. Deliberately NOT a play triangle.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -15,9 +11,10 @@
     android:viewportHeight="108">
     <path
         android:fillColor="#FFFFFF"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="5"
-        android:strokeLineJoin="round"
-        android:strokeLineCap="round"
-        android:pathData="M32,76 L32,53 A22,22 0 0 1 76,53 L76,76 L63,76 L63,53 A9,9 0 0 0 45,53 L45,76 Z" />
+        android:fillType="evenOdd"
+        android:pathData="M26,54 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M34,54 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z" />
+    <path
+        android:fillColor="@color/yoo_spark"
+        android:fillType="evenOdd"
+        android:pathData="M50,54 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M58,54 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z" />
 </vector>

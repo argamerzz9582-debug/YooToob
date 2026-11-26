@@ -134,7 +134,8 @@ public class CategoryChipBar {
     }
 
     private void updateChipStyles() {
-        int colorActiveText = ContextCompat.getColor(mActivity, R.color.mobile_color_on_inverse_surface);
+        // YOOTOOB(chips): the selected chip is the accent pill (bg_category_chip_active).
+        int colorActiveText = ContextCompat.getColor(mActivity, R.color.yoo_on_accent);
         int colorInactiveText = ContextCompat.getColor(mActivity, R.color.mobile_color_on_surface);
 
         for (Map.Entry<Integer, TextView> entry : mChipViews.entrySet()) {

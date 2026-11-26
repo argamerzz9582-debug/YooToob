@@ -371,13 +371,16 @@ class DialogRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return text;
     }
 
+    /**
+     * YOOTOOB(menus): an action row's leading glyph. Every glyph sits on the same neutral control
+     * bubble and takes its colour from its own drawable (ink, or yoo_danger for Block), so a menu
+     * reads as one list instead of ten colour-coded badges whose colours meant nothing.
+     */
     private static final class ActionVisuals {
         final int iconRes;
-        final int bgTint;
 
-        ActionVisuals(int iconRes, int bgTint) {
+        ActionVisuals(int iconRes) {
             this.iconRes = iconRes;
-            this.bgTint = bgTint;
         }
     }
 
@@ -391,72 +394,72 @@ class DialogRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // 1. Save to Watch later
         if (matchesString(context, text, R.string.add_video_to_watch_later)
                 || lower.contains("watch later")) {
-            return new ActionVisuals(R.drawable.ic_action_watch_later, 0x1A00A3FF);
+            return new ActionVisuals(R.drawable.ic_action_watch_later);
         }
 
         // 3. New playlist (checked before general "playlist" match)
         if (matchesString(context, text, R.string.add_video_to_new_playlist)
                 || matchesString(context, text, R.string.create_playlist)
                 || lower.contains("new playlist") || lower.contains("create playlist")) {
-            return new ActionVisuals(R.drawable.ic_action_new_playlist, 0x1A22C55E);
+            return new ActionVisuals(R.drawable.ic_action_new_playlist);
         }
 
         // 2. Save to playlist
         if (matchesString(context, text, R.string.dialog_add_to_playlist)
                 || lower.contains("playlist")) {
-            return new ActionVisuals(R.drawable.ic_action_save_playlist, 0x1A8A2BE2);
+            return new ActionVisuals(R.drawable.ic_action_save_playlist);
         }
 
         // 3. Sleep timer
         if (matchesString(context, text, R.string.player_sleep_timer)
                 || matchesString(context, text, R.string.mobile_player_sleep_timer)
                 || lower.contains("sleep timer")) {
-            return new ActionVisuals(R.drawable.ic_action_sleep_timer, 0x1A8B5CF6);
+            return new ActionVisuals(R.drawable.ic_action_sleep_timer);
         }
 
         // 4. Download
         if (matchesString(context, text, R.string.dialog_download)
                 || lower.contains("download")) {
-            return new ActionVisuals(R.drawable.ic_action_download, 0x1AFF0033);
+            return new ActionVisuals(R.drawable.ic_action_download);
         }
 
         // 5. Share
         if (matchesString(context, text, R.string.share_link)
                 || lower.contains("share")) {
-            return new ActionVisuals(R.drawable.ic_action_share, 0x1A6366F1);
+            return new ActionVisuals(R.drawable.ic_action_share);
         }
 
         // 6. Not interested
         if (matchesString(context, text, R.string.not_interested)
                 || lower.contains("not interested")) {
-            return new ActionVisuals(R.drawable.ic_action_not_interested, 0x1AF59E0B);
+            return new ActionVisuals(R.drawable.ic_action_not_interested);
         }
 
         // 7. Don't recommend channel
         if (matchesString(context, text, R.string.not_recommend_channel)
                 || lower.contains("recommend")) {
-            return new ActionVisuals(R.drawable.ic_action_not_recommend, 0x1AF97316);
+            return new ActionVisuals(R.drawable.ic_action_not_recommend);
         }
 
         // 8. Play next / Queue
         if (matchesString(context, text, R.string.play_next)
                 || matchesString(context, text, R.string.add_to_playback_queue)
                 || lower.contains("play next") || lower.contains("queue")) {
-            return new ActionVisuals(R.drawable.ic_action_play_next, 0x1A06B6D4);
+            return new ActionVisuals(R.drawable.ic_action_play_next);
         }
 
         // 9. Block the channel
         if (matchesString(context, text, R.string.dialog_block_channel)
                 || matchesString(context, text, R.string.dialog_unblock_channel)
                 || lower.contains("block")) {
-            return new ActionVisuals(R.drawable.ic_action_block, 0x1AEF4444);
+            return new ActionVisuals(R.drawable.ic_action_block);
         }
 
         // 10. Open channel
         if (matchesString(context, text, R.string.open_channel)
                 || matchesString(context, text, R.string.open_playlist)
                 || lower.contains("channel")) {
-            return new ActionVisuals(R.drawable.ic_action_channel, 0x1A14B8A6);
+            return new ActionVisuals(R.drawable.ic_action_channel);
         }
 
         return null;
@@ -532,7 +535,7 @@ class DialogRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 iconView.setImageResource(visuals.iconRes);
                 GradientDrawable shape = new GradientDrawable();
                 shape.setShape(GradientDrawable.OVAL);
-                shape.setColor(visuals.bgTint);
+                shape.setColor(ContextCompat.getColor(itemView.getContext(), R.color.mobile_glass_surface_control));
                 iconContainer.setBackground(shape);
             } else if (iconContainer != null) {
                 iconContainer.setVisibility(View.GONE);

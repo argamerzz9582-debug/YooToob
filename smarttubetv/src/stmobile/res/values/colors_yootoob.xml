@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  YooToob brand tokens (LIGHT values; values-night/colors_yootoob.xml holds the dark side).
+
+  These are the only colours that carry the brand. Everything else in colors_mobile.xml is a
+  neutral or a semantic colour, and points here when it needs the accent, so a palette change is
+  one edit in this file. Rules (docs/yootoob/DESIGN_SYSTEM.md):
+    - yoo_accent is for the current selection, primary state and links. It never fills a page
+      or decorates an inactive control.
+    - yoo_spark (the second ring in the logo) only appears in the mark and at the very end of the
+      seek bar. It is not a second accent.
+    - Glass tokens are for floating layers only (the dock, the floating header, the mini player
+      metadata): content cards stay opaque so titles stay readable over any thumbnail.
+  Contrast (WCAG 2.x, measured): accent on page 5.9:1, white on accent 6.1:1, night accent on
+  night page 7.8:1.
+-->
+<resources>
+    <!-- Yoo violet: AA-safe as text on the light page and as a fill under white text. -->
+    <color name="yoo_accent">#5B3DF5</color>
+    <color name="yoo_accent_pressed">#4428D9</color>
+    <color name="yoo_on_accent">#FFFFFF</color>
+    <!-- The switch track and other "on" rails: the accent at 50%. -->
+    <color name="yoo_accent_track">#805B3DF5</color>
+
+    <!-- The "YooToob" wordmark in the top bar: ink, so the colour stays in the mark beside it.
+         An alias, so it follows the theme through mobile_color_on_surface. -->
+    <color name="yoo_wordmark">@color/mobile_color_on_surface</color>
+
+    <!-- The second ring of the mark. Fixed in both themes. -->
+    <color name="yoo_spark">#FF5C8A</color>
+
+    <!-- Over pictures (the same in both themes): the played part of every progress line, on the
+         seek bar, thumbnails and the mini player. Lighter than yoo_accent so it holds 5.2:1 on
+         black video. -->
+    <color name="yoo_progress">#7C66FF</color>
+
+    <!-- Brand canvas for the launcher icon background and the website. Fixed in both themes. -->
+    <color name="yoo_brand_canvas">#5B3DF5</color>
+
+    <!-- Floating glass dock (LiquidGlassBottomNavigationView). The body is translucent so the
+         feed reads as passing under it; ~90% keeps labels at full contrast over any thumbnail
+         without a backdrop blur (no blur on API < 31, and blur over a scrolling grid costs a
+         full-screen pass per frame). The highlight is the lit top edge of the material. -->
+    <color name="yoo_glass_dock_body">#EBFEFDFF</color>
+    <color name="yoo_glass_dock_outline">#1F14121C</color>
+    <color name="yoo_glass_dock_highlight">#CCFFFFFF</color>
+    <color name="yoo_glass_dock_shadow">#1F1E1440</color>
+
+    <!-- Destructive actions (Sign out, Delete, Clear history): never the brand colour, so a
+         destructive row cannot be mistaken for the selected one. 5.0:1 on the light surface. -->
+    <color name="yoo_danger">#D12B3A</color>
+</resources>

@@ -1,7 +1,27 @@
-# ViewTube — Novedades
+# YooToob (antes ViewTube): novedades
 
 Cambios visibles para el usuario, en español. El historial completo de
 versiones anteriores está en [CHANGELOG.md](CHANGELOG.md) (en inglés).
+
+
+## Unreleased — YooToob
+
+*Tu mundo de vídeo, reinventado.*
+
+### Cambios
+
+- **Nuevo nombre y aspecto.** ViewTube ahora es YooToob, con un icono nuevo de dos anillos
+  (adaptativo, con versión temática de Android 13) y un violeta tranquilo en lugar del rojo,
+  en modo claro y oscuro.
+- **Menús más tranquilos.** Los iconos del menú de vídeo son neutros; solo las acciones
+  destructivas (Bloquear, Cerrar sesión, Borrar) van en rojo.
+- **Barra inferior flotante de cristal activada por defecto.** Se respeta tu elección en
+  Ajustes > Apariencia.
+- **Chips de categoría** redondeados; el seleccionado usa el color de acento.
+- **Barra de progreso** en violeta que pasa a rosa.
+- Los textos de envío a la TV nombran correctamente la app: SmartTube.
+
+Nada más cambia: mismo paquete, ajustes, cuentas, descargas y copias de seguridad.
 
 
 ## 1.16.0 — 02-11-2026

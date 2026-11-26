@@ -1,0 +1,25 @@
+# YooToob: implementation checklist
+
+- [x] Audit, feature inventory, plan written (this folder)
+- [x] Static resource checker `tools/yootoob/check_resources.py` (baseline 0/0)
+- [x] Java syntax checker `tools/yootoob/java_syntax_check.py` (tree-sitter; not a compiler)
+- [x] Brand tokens light + night; contrast checked
+- [x] `colors_mobile` (+ night, v27), `colors_settings_search` (+ night) re-pointed
+- [x] `res/color` selectors (bottom nav, switch thumb/track, radio) tokenized
+- [x] Theme.NewTube accent items
+- [x] `BrowseTopBar` wordmark token; `activity_mobile_browse` wordmark colour
+- [x] `PlayerTimeBar` violet → spark progress
+- [x] `LiquidGlassBottomNavigationView` tokenized, lit top edge, recolours on config change
+- [x] Floating dock default ON (`AppearancePrefs.FLOATING_BOTTOM_BAR_DEFAULT`)
+- [x] `DialogRowAdapter` neutral action icons; destructive = `yoo_danger`
+- [x] Category chips: accent pill for the selected chip, 16dp radius
+- [x] Strings en/es/da/fi + `src/main` app_name; floating-bar copy rewritten
+- [x] Vector logo + adaptive icon + monochrome; legacy PNGs regenerated (`tools/yootoob/render_icons.mjs`)
+- [x] Old raster logo/foreground PNGs removed; no dangling refs
+- [x] Website palette, hero, header glass + reduced-transparency fallback, rebrand, icon
+- [x] README, fastlane title/description/icon
+- [x] DESIGN_SYSTEM, CHANGELOG entry, QA_REPORT, MIGRATION_NOTES, TOOLKIT docs
+- [ ] `./gradlew :smarttubetv:assembleStmobileDebug` and `lintStbetaRelease` (needs JDK/SDK or CI)
+- [ ] On-device pass: light/dark, 320dp to tablet, TalkBack, font scale 200%
+- [ ] Decide the release/OTA identity (see MIGRATION_NOTES) before publishing a YooToob build
+- [ ] Typography/spacing refinements per screen (after the device pass)

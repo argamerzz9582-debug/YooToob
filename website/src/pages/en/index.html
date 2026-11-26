@@ -1,7 +1,7 @@
 <!--meta {
-  "title": "ViewTube: Fluid, Private YouTube Client for Android",
-  "og_title": "ViewTube: Fluid, Private YouTube Client for Android",
-  "description": "ViewTube is a fast, ad-free, open-source YouTube client for Android. Built with liquid glass aesthetics, background playback, PiP, Sleep Timer, SponsorBlock, and next-gen Media3 streaming.",
+  "title": "YooToob: Fluid, Private YouTube Client for Android",
+  "og_title": "YooToob: Fluid, Private YouTube Client for Android",
+  "description": "YooToob is a fast, ad-free, open-source YouTube client for Android. Built with liquid glass aesthetics, background playback, PiP, Sleep Timer, SponsorBlock, and next-gen Media3 streaming.",
   "jsonld": true
 } -->
     <section class="hero" aria-labelledby="hero-title">
@@ -12,8 +12,8 @@
             <span class="badge">Open Source · MIT</span>
             <span class="badge">Android 7+</span>
           </div>
-          <h1 id="hero-title">YouTube for Android. <span class="gradient-text">Fluid, private, perfected.</span></h1>
-          <p class="lead">The ultimate YouTube experience on your phone: ad-free streaming, background playback, PiP, physical gestures, and a fluid liquid glass interface — all without Google Play Services or microG.</p>
+          <h1 id="hero-title">Your video world, <span class="accent-text">reimagined.</span></h1>
+          <p class="lead">YooToob is an independent, open-source video app for Android: ad-free playback, background audio, picture-in-picture, gestures and SponsorBlock, in a calm glass interface. No Google Play Services or microG needed. Not affiliated with YouTube or Google.</p>
           <div class="get">
             <div class="get-actions">
               <a class="btn btn-primary" href="{{apk_url_universal}}">
@@ -55,15 +55,15 @@
     <section class="how-it-works" id="how-it-works" aria-labelledby="how-title">
       <div class="wrap">
         <div class="section-badge"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg> Architecture & Mechanism</div>
-        <h2 id="how-title">How ViewTube Works Behind the Scenes</h2>
-        <p class="section-lead">ViewTube is not a web wrapper. It is a purpose-built, high-performance native Android application engineered to deliver the cleanest streaming experience.</p>
+        <h2 id="how-title">How YooToob Works Behind the Scenes</h2>
+        <p class="section-lead">YooToob is not a web wrapper. It is a purpose-built, high-performance native Android application engineered to deliver the cleanest streaming experience.</p>
 
         <div class="architecture-grid">
           <div class="arch-card">
             <div class="arch-number">01</div>
             <div class="arch-icon"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></div>
             <h3>Direct InnerTube Protocol</h3>
-            <p>ViewTube communicates directly with YouTube's private InnerTube client endpoints. By speaking native JSON over OkHttp with HTTP/2 connection multiplexing and Brotli compression, it retrieves metadata and streams without requiring Google Play Services, microG, or root privileges.</p>
+            <p>YooToob communicates directly with YouTube's private InnerTube client endpoints. By speaking native JSON over OkHttp with HTTP/2 connection multiplexing and Brotli compression, it retrieves metadata and streams without requiring Google Play Services, microG, or root privileges.</p>
             <ul class="arch-points">
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> No battery-draining Google Play Services</li>
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> HTTP/2 socket reuse keeps NAT mappings alive</li>
@@ -87,7 +87,7 @@
             <div class="arch-number">03</div>
             <div class="arch-icon"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></div>
             <h3>Liquid Glass & Physical Touch UI</h3>
-            <p>ViewTube features a custom-built liquid glass interface inspired by Apple physics and Emil Kowalski design engineering. Custom views calculate real-time specular highlights, droplet compression under finger pressure, and physical spring damping.</p>
+            <p>YooToob features a custom-built liquid glass interface inspired by Apple physics and Emil Kowalski design engineering. Custom views calculate real-time specular highlights, droplet compression under finger pressure, and physical spring damping.</p>
             <ul class="arch-points">
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Redesigned 24dp rounded video player bottom sheet</li>
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Swipe gestures for volume, brightness & seeking</li>
@@ -99,7 +99,7 @@
             <div class="arch-number">04</div>
             <div class="arch-icon"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
             <h3>100% Private, Local-Only Auth</h3>
-            <p>Signing in uses Google's standard OAuth 2.0 Device Code flow — exactly how Android TV signs in. You approve a short 8-letter code on google.com/device in your personal browser. Your password never touches ViewTube, and your account tokens stay encrypted exclusively on your phone.</p>
+            <p>Signing in uses Google's standard OAuth 2.0 Device Code flow — exactly how Android TV signs in. You approve a short 8-letter code on google.com/device in your personal browser. Your password never touches YooToob, and your account tokens stay encrypted exclusively on your phone.</p>
             <ul class="arch-points">
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Zero telemetry, analytics, or developer servers</li>
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Full access to your subscriptions, history & playlists</li>
@@ -111,7 +111,7 @@
             <div class="arch-number">05</div>
             <div class="arch-icon"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg></div>
             <h3>Automated In-App OTA Updates</h3>
-            <p>ViewTube features a built-in Over-The-Air updater. At launch, the app quietly checks the signed <code>viewtube.json</code> manifest from the official release channel, parses the release notes, and offers one-tap in-place updates via Android's PackageInstaller.</p>
+            <p>YooToob features a built-in Over-The-Air updater. At launch, the app quietly checks the signed <code>viewtube.json</code> manifest from the official release channel, parses the release notes, and offers one-tap in-place updates via Android's PackageInstaller.</p>
             <ul class="arch-points">
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Direct downloads from secure official servers</li>
               <li><svg class="i check" aria-hidden="true"><use href="#i-check"/></svg> Cryptographic signature & SHA-256 verification</li>
@@ -173,7 +173,7 @@
     <section class="download-hub" id="download" aria-labelledby="dl-title">
       <div class="wrap">
         <div class="section-badge"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg> Download Center</div>
-        <h2 id="dl-title">Get ViewTube for Your Device</h2>
+        <h2 id="dl-title">Get YooToob for Your Device</h2>
         <p class="section-lead">Choose the build optimized for your phone processor, or pick Universal for guaranteed compatibility.</p>
 
         <div class="apk-cards-grid">

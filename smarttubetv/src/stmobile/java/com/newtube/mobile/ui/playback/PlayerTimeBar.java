@@ -46,7 +46,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * track that becomes 3 dp while dragging; chapters as 2 dp transparent gaps (3 dp while dragging); a
  * 12 dp dot, 20 dp while dragging; played #FF0033 turning pink (#FF2791) over the last 40 dp before
  * the dot; white 70% buffered, white 20% unplayed. This bar keeps those proportions (the dragged dot
- * a little smaller) with a calmer buffered tone.
+ * a little smaller) with a calmer buffered tone, in YooToob's colours (see PLAYED_COLOR).
  *
  * <p>Two resting states, animated between: shown (the controls are up: the whole track and the
  * dot) and hidden (portrait keeps only the played part as a line on the video's bottom edge, like
@@ -68,8 +68,14 @@ public class PlayerTimeBar extends View implements TimeBar {
         void onReleaseToCancel(boolean armed);
     }
 
-    static final int PLAYED_COLOR = 0xFFFF0033;
-    static final int PLAYED_TAIL_COLOR = 0xFFFF2791;
+    /*
+     * YOOTOOB(seek bar): the brand's progress violet turning into the mark's second ring (spark)
+     * over the last 40 dp, in place of YouTube's red-to-pink. Kept as constants because the tail
+     * shader is built from them; they mirror @color/yoo_progress and @color/yoo_spark, which the
+     * thumbnails' and the mini player's progress lines use - change them together.
+     */
+    static final int PLAYED_COLOR = 0xFF7C66FF;
+    static final int PLAYED_TAIL_COLOR = 0xFFFF5C8A;
     static final int BUFFERED_COLOR = 0x80FFFFFF;
     static final int UNPLAYED_COLOR = 0x33FFFFFF;
 

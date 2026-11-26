@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- YooToob brand tokens, DARK side. Only colours that differ from values/colors_yootoob.xml. -->
+<resources>
+    <!-- Lifted violet: 7.8:1 on the night page, and near-black text on it reads at 7.8:1 too. -->
+    <color name="yoo_accent">#A794FF</color>
+    <color name="yoo_accent_pressed">#BCADFF</color>
+    <color name="yoo_on_accent">#0C0B12</color>
+    <color name="yoo_accent_track">#80A794FF</color>
+
+    <color name="yoo_glass_dock_body">#E617151F</color>
+    <color name="yoo_glass_dock_outline">#2EFFFFFF</color>
+    <color name="yoo_glass_dock_highlight">#29FFFFFF</color>
+    <color name="yoo_glass_dock_shadow">#66000000</color>
+</resources>

@@ -4,8 +4,8 @@
     android:color="@color/mobile_color_inverse_ripple">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="8dp" />
-            <solid android:color="@color/mobile_color_inverse_surface" />
+            <corners android:radius="16dp" />
+            <solid android:color="@color/yoo_accent" />
         </shape>
     </item>
 </ripple>

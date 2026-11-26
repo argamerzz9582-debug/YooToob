@@ -1,6 +1,24 @@
-# ViewTube Changelog
+# YooToob Changelog
 
-All notable user-facing changes to ViewTube, the phone app built on SmartTube.
+All notable user-facing changes to YooToob (formerly ViewTube), the phone app built on SmartTube.
+
+## Unreleased — YooToob
+
+*Your video world, reimagined.*
+
+### Changed
+
+- **New name and look.** ViewTube is now YooToob, with a new two-ring icon (adaptive, with an
+  Android 13 themed version) and a calm violet accent in place of red, in both light and dark.
+- **Quieter menus.** Video menu icons are neutral; only destructive actions (Block, Sign out,
+  Clear) are coloured, in red.
+- **Floating glass dock on by default**, with a lit top edge. Your existing choice in
+  Settings > Appearance is kept.
+- **Category chips** are rounded pills; the selected one uses the accent.
+- **Seek bar** fills violet into pink.
+- Casting text now names the TV app correctly: SmartTube.
+
+Nothing else changed: same package, settings, accounts, downloads and backups.
 
 ## 1.16.0 — 2026-11-02
 

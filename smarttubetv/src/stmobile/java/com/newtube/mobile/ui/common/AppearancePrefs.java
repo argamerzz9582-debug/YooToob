@@ -45,11 +45,15 @@ public final class AppearancePrefs {
     }
 
     /**
-     * Default behavior: false (preserve conventional, full-width bottom bar).
-     * The floating design is independently controlled by this setting.
+     * YOOTOOB(glass): default ON - the floating glass dock is YooToob's navigation. Only the
+     * default changed: anyone who already turned the setting off (or on) keeps their choice,
+     * because an explicitly stored value always wins over this default. The conventional
+     * full-width bar is one switch away in Settings &gt; Appearance.
      */
+    static final boolean FLOATING_BOTTOM_BAR_DEFAULT = true;
+
     public static boolean isFloatingBottomBarEnabled(Context context) {
-        return getPrefs(context).getBoolean(KEY_FLOATING_BOTTOM_BAR, false);
+        return getPrefs(context).getBoolean(KEY_FLOATING_BOTTOM_BAR, FLOATING_BOTTOM_BAR_DEFAULT);
     }
 
     public static void setFloatingBottomBarEnabled(Context context, boolean enabled) {

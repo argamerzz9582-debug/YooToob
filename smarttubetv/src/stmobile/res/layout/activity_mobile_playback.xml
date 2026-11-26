@@ -588,8 +588,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
                         android:layout_weight="1"
-                        android:progressTint="@color/mobile_color_primary"
-                        android:thumbTint="@color/mobile_color_primary" />
+                        android:progressTint="@color/mobile_color_progress"
+                        android:thumbTint="@color/mobile_color_progress" />
 
                     <TextView
                         android:id="@+id/mobile_cast_duration"

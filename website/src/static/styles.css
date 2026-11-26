@@ -1,9 +1,9 @@
-/* viewtube.org. Plain CSS, no build step for styles, nothing loaded from third parties.
+/* YooToob site (served at viewtube.app). Plain CSS, no build step for styles, nothing loaded from third parties.
    Layout: a quiet page. Short sections on a pale ground, generous space, light display type;
    the only images are the app and the film it plays. Follows the system theme. */
 
 @font-face {
-  font-family: "ViewTube Display";
+  font-family: "YooToob Display";
   /* Roboto Flex (SIL OFL), cut to Latin + Spanish, wght 300–600 and the opsz axis. */
   src: url("/assets/fonts/roboto-flex-display.woff2") format("woff2");
   font-weight: 300 600;
@@ -12,21 +12,26 @@
 }
 
 :root {
-  --ground: #f4f5f6;
-  --surface: #ffffff;
-  --ink: #121318;
-  --ink-2: #4c505d;
-  --ink-3: #6a6e7c;
-  --line: #e1e3e8;
-  --accent: #26339a;
-  --accent-hover: #1c287f;
+  /* YOOTOOB: the same palette as the app (smarttubetv/src/stmobile/res/values/colors_*.xml).
+     Tinted neutrals and one violet accent; the spark pink only ever appears in the mark. */
+  --ground: #fbfafe;
+  --surface: #fefdff;
+  --ink: #14121c;
+  --ink-2: #5e5a6e;
+  --ink-3: #6e6980;
+  --line: #e6e3ef;
+  --accent: #5b3df5;
+  --accent-hover: #4428d9;
   --accent-ink: #ffffff;
-  --accent-soft: #e5e8f6;
-  --link: #26339a;
-  --device: #101116;
-  --shadow: 0 30px 60px -28px rgba(18, 22, 48, 0.35), 0 12px 24px -16px rgba(18, 22, 48, 0.18);
+  --accent-soft: #ece8ff;
+  --link: #4b2ee6;
+  --spark: #ff5c8a;
+  --device: #14121c;
+  --glass: rgba(254, 253, 255, 0.78);
+  --glass-edge: rgba(20, 18, 28, 0.08);
+  --shadow: 0 30px 60px -28px rgba(30, 20, 64, 0.32), 0 12px 24px -16px rgba(30, 20, 64, 0.16);
 
-  --display: "ViewTube Display", "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "YooToob Display", "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
   --text: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "Roboto Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
@@ -43,18 +48,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground: #0d0e12;
-    --surface: #16171d;
-    --ink: #ecedf1;
-    --ink-2: #a9acb8;
-    --ink-3: #7d818e;
-    --line: #24262e;
-    --accent: #dde1ff;
-    --accent-hover: #ffffff;
-    --accent-ink: #141a52;
-    --accent-soft: #1d2036;
-    --link: #b9c1ff;
+    --ground: #0c0b12;
+    --surface: #17151f;
+    --ink: #f3f1fa;
+    --ink-2: #b6b3c2;
+    --ink-3: #8e8a9c;
+    --line: #26232f;
+    --accent: #a794ff;
+    --accent-hover: #bcadff;
+    --accent-ink: #0c0b12;
+    --accent-soft: #29224d;
+    --link: #b9abff;
     --device: #000000;
+    --glass: rgba(23, 21, 31, 0.78);
+    --glass-edge: rgba(255, 255, 255, 0.10);
     --shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 12px 24px -16px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
   }
@@ -116,11 +123,19 @@ a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0
   top: 0;
   z-index: 1000;
   padding-block: 12px;
-  background: color-mix(in srgb, var(--ground) 85%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--glass-edge);
   transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+/* No backdrop blur available (or the user asked for less transparency): go opaque instead of
+   letting page text show through the header. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header { background: var(--ground); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .site-header { background: var(--ground); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 @supports (padding-top: env(safe-area-inset-top)) {
   .site-header {
@@ -153,7 +168,7 @@ a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0
   height: 32px;
   border-radius: 8px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(220, 38, 38, 0.35));
+  filter: drop-shadow(0 2px 8px rgba(91, 61, 245, 0.30));
   transition: transform 0.25s var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -414,7 +429,7 @@ h3 { font-weight: 500; font-size: 1.0625rem; line-height: 1.3; letter-spacing: -
 
 .btn-sm {
   min-height: 36px; padding: 0 14px; font-size: 0.8125rem; font-weight: 500;
-  border-radius: 999px; background: var(--link); color: #ffffff; border: 0; cursor: pointer;
+  border-radius: 999px; background: var(--accent); color: var(--accent-ink); border: 0; cursor: pointer;
 }
 @media (hover: hover) and (pointer: fine) {
   .btn-sm:hover { opacity: 0.92; transform: translateY(-1px); }
@@ -466,19 +481,9 @@ h3 { font-weight: 500; font-size: 1.0625rem; line-height: 1.3; letter-spacing: -
   box-shadow: 0 0 14px color-mix(in srgb, var(--link) 25%, transparent);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #4338ca 0%, #6366f1 40%, #ec4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-@media (prefers-color-scheme: dark) {
-  .gradient-text {
-    background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 45%, #f472b6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
+/* The one coloured word in the hero. Solid accent, not gradient text: it stays legible in
+   forced-colors mode and when selected. */
+.accent-text { color: var(--accent); }
 
 /* release line under the download button */
 .get-meta .rl:not(:empty)::after { content: " · "; }
@@ -615,7 +620,7 @@ h3 { font-weight: 500; font-size: 1.0625rem; line-height: 1.3; letter-spacing: -
 .end { padding-block: var(--space); }
 .end .wrap { display: grid; justify-items: center; text-align: center; }
 .end-icon { width: 76px; height: 76px; margin-bottom: 28px;
-  filter: drop-shadow(0 18px 24px rgba(20, 28, 90, 0.22)) drop-shadow(0 4px 8px rgba(20, 28, 90, 0.12)); }
+  filter: drop-shadow(0 18px 24px rgba(60, 30, 160, 0.22)) drop-shadow(0 4px 8px rgba(60, 30, 160, 0.12)); }
 .end .get { margin-top: 1.75rem; justify-items: center; }
 .end .get-more { justify-content: center; }
 
@@ -755,7 +760,7 @@ td { color: var(--ink-2); }
   position: relative; background: var(--surface); border: 1px solid var(--line);
   border-radius: 24px; padding: clamp(24px, 3vw, 32px);
   display: flex; flex-direction: column;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 24px -12px rgba(18, 22, 48, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 24px -12px rgba(30, 20, 64, 0.08);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.2s ease;
 }
 @media (hover: hover) and (pointer: fine) {
@@ -788,7 +793,7 @@ td { color: var(--ink-2); }
   font-size: 0.875rem; color: var(--ink-2); line-height: 1.45;
 }
 .arch-points .check {
-  width: 16px; height: 16px; color: #10b981; flex-shrink: 0; margin-top: 2px;
+  width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; margin-top: 2px;
 }
 
 /* ---------- Features Grid ---------- */
@@ -813,7 +818,7 @@ td { color: var(--ink-2); }
   .feat-card:hover {
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--link) 35%, transparent);
-    box-shadow: 0 12px 24px -8px rgba(18, 22, 48, 0.08);
+    box-shadow: 0 12px 24px -8px rgba(30, 20, 64, 0.08);
   }
 }
 .feat-icon { font-size: 2rem; margin-bottom: 16px; line-height: 1; }
@@ -843,7 +848,7 @@ td { color: var(--ink-2); }
   .apk-card:hover {
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--link) 40%, transparent);
-    box-shadow: 0 14px 28px -10px rgba(18, 22, 48, 0.1);
+    box-shadow: 0 14px 28px -10px rgba(30, 20, 64, 0.1);
   }
 }
 .apk-card.featured {
@@ -855,7 +860,7 @@ td { color: var(--ink-2); }
   position: absolute; top: 18px; right: 18px;
   font: 600 0.6875rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.05em;
   padding: 4px 10px; border-radius: 999px;
-  background: var(--link); color: #ffffff;
+  background: var(--accent); color: var(--accent-ink);
 }
 .tag-subtle {
   background: var(--ground); color: var(--ink-3); border: 1px solid var(--line);
