@@ -1,0 +1,178 @@
+name: Build YooToob APK
+
+# Builds the phone app (stmobile release) on GitHub's servers and publishes a GitHub Release whose
+# only uploaded file is YooToob.apk (the universal APK, runs on every phone). GitHub adds the
+# "Source code (zip)" and "Source code (tar.gz)" archives to every release by itself.
+#
+# Run it from the Actions tab ("Build YooToob APK" > Run workflow) or:
+#   gh workflow run yootoob-release.yml -f tag=v1.16.0
+#
+# Signing: set these repository secrets once (Settings > Secrets and variables > Actions) so every
+# release is signed with the same key and installs over the previous one:
+#   YOOTOOB_KEYSTORE_BASE64   the .jks/.p12 file, base64
+#   YOOTOOB_KEYSTORE_PASSWORD
+#   YOOTOOB_KEY_ALIAS
+#   YOOTOOB_KEY_PASSWORD
+# Without them the run still works, but signs with a one-off key made for that run: the APK
+# installs fine, yet the NEXT release (new one-off key) can't update it in place. The release
+# notes say which key was used.
+#
+# The in-app updater is turned off (-PnoInAppUpdates): it reads upstream ViewTube's feed, whose
+# APKs can't install over a differently signed YooToob.
+#
+# A release made with this workflow's GITHUB_TOKEN does not trigger the other release workflows
+# (update-feed, VirusTotal, Discord), which are wired to upstream ViewTube.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to create or update, e.g. v1.16.0"
+        required: true
+        default: "v1.16.0"
+      prerelease:
+        description: "Mark as pre-release"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yootoob-release-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write   # create the tag and the release
+    env:
+      TAG: ${{ inputs.tag }}
+      NDK_VERSION: 21.0.6113669        # smarttubetv/build.gradle ndkVersion
+      CMDLINE_TOOLS_VERSION: "23.0"    # profgen for the embedded ART profile
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install the NDK and profgen
+        run: |
+          set -euo pipefail
+          (yes || true) | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;$NDK_VERSION" "cmdline-tools;$CMDLINE_TOOLS_VERSION" > /dev/null
+          profgen="$ANDROID_HOME/cmdline-tools/$CMDLINE_TOOLS_VERSION/bin/profgen"
+          test -x "$profgen"
+          echo "PROFGEN=$profgen" >> "$GITHUB_ENV"
+          echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+
+      - name: Configure signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.YOOTOOB_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.YOOTOOB_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.YOOTOOB_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.YOOTOOB_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          ks="$RUNNER_TEMP/yootoob.jks"
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$ks"
+            echo "SIGNING=permanent" >> "$GITHUB_ENV"
+          else
+            echo "::warning::No YOOTOOB_KEYSTORE_BASE64 secret: signing with a one-off key for this run."
+            KEYSTORE_PASSWORD="$(openssl rand -hex 24)"
+            KEY_PASSWORD="$KEYSTORE_PASSWORD"
+            KEY_ALIAS=yootoob
+            echo "::add-mask::$KEYSTORE_PASSWORD"
+            keytool -genkeypair -noprompt -keystore "$ks" -storetype PKCS12 \
+              -storepass "$KEYSTORE_PASSWORD" -keypass "$KEY_PASSWORD" -alias "$KEY_ALIAS" \
+              -keyalg RSA -keysize 4096 -validity 10000 -dname "CN=YooToob, OU=YooToob, O=YooToob"
+            echo "SIGNING=one-off" >> "$GITHUB_ENV"
+          fi
+          {
+            echo "storeFile=$ks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > keystore.properties
+
+      - name: Build the release APK
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon --stacktrace :smarttubetv:assembleStmobileRelease \
+            -PnoInAppUpdates -PprofgenPath="$PROFGEN"
+          ls -l smarttubetv/build/outputs/renamed_apks/stmobileRelease/
+          mkdir dist
+          cp smarttubetv/build/outputs/renamed_apks/stmobileRelease/*Tube_*_universal.apk dist/YooToob.apk
+
+      - name: Remove the signing key
+        if: always()
+        run: rm -f keystore.properties "$RUNNER_TEMP/yootoob.jks"
+
+      - name: Verify the signature
+        run: |
+          set -euo pipefail
+          apksigner="$(ls -d "$ANDROID_HOME"/build-tools/[0-9]* | sort -V | tail -1)/apksigner"
+          out="$("$apksigner" verify --print-certs dist/YooToob.apk)"
+          printf '%s\n' "$out"
+          cert="$(printf '%s\n' "$out" | grep -oE 'certificate SHA-256 digest: [0-9a-f]{64}' | head -1 | awk '{print $4}')"
+          echo "CERT=$cert" >> "$GITHUB_ENV"
+          echo "SHA256=$(sha256sum dist/YooToob.apk | awk '{print $1}')" >> "$GITHUB_ENV"
+
+      - name: Keep the APK as a workflow artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: YooToob-${{ inputs.tag }}
+          path: dist/YooToob.apk
+          retention-days: 14
+
+      - name: Publish the release (YooToob.apk only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PRERELEASE: ${{ inputs.prerelease }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          if [ "$SIGNING" = "permanent" ]; then
+            key_note="Signed with the YooToob release key. Installs over earlier YooToob releases signed with the same key."
+          else
+            key_note="Signed with a one-off key made for this build (no YOOTOOB_KEYSTORE secrets set). Installs fine on its own; a later release signed with a different key can't update it in place, so you'd uninstall first."
+          fi
+          cat > notes.md <<EOF
+          **YooToob ${version}**: Your video world, reimagined.
+
+          Download **YooToob.apk** below (universal, Android 7.0+). New name and icon, a calm violet
+          look in light and dark, quieter menus and the floating glass dock on by default. See
+          [CHANGELOG.md](https://github.com/${GH_REPO}/blob/${GITHUB_SHA}/CHANGELOG.md).
+
+          - SHA-256 of YooToob.apk: \`${SHA256}\`
+          - Signing certificate SHA-256: \`${CERT}\`
+          - ${key_note}
+          - In-app updates are off in this build; get new versions from this Releases page.
+
+          YooToob is an independent, unofficial app, not affiliated with YouTube or Google.
+          Built by GitHub Actions run ${GITHUB_RUN_ID} from ${GITHUB_SHA}.
+          EOF
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); else flags+=(--latest); fi
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            # Keep the release to exactly one uploaded file: drop anything else attached to it.
+            gh release view "$TAG" --json assets --jq '.assets[].name' | while read -r name; do
+              [ "$name" = "YooToob.apk" ] || gh release delete-asset "$TAG" "$name" --yes
+            done
+            gh release upload "$TAG" dist/YooToob.apk --clobber
+            gh release edit "$TAG" --title "YooToob ${version}" --notes-file notes.md "${flags[@]}"
+          else
+            gh release create "$TAG" dist/YooToob.apk --target "$GITHUB_SHA" \
+              --title "YooToob ${version}" --notes-file notes.md "${flags[@]}"
+          fi
+          gh release view "$TAG"

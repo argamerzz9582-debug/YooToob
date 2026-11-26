@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  YooToob mark, in-app size (top bar, dialog header). Two overlapping rings: the "oo" of the name.
+  The first ring takes the theme's accent (deep violet on light, lifted violet on dark) so it holds
+  contrast on either page; the second is the fixed spark. Deliberately not a play triangle and
+  nothing like YouTube's logo. Master artwork: .github/assets/icon.svg.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="35dp"
+    android:height="20dp"
+    android:viewportWidth="56"
+    android:viewportHeight="32">
+    <path
+        android:fillColor="@color/yoo_accent"
+        android:fillType="evenOdd"
+        android:pathData="M0,16 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M8,16 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z" />
+    <path
+        android:fillColor="@color/yoo_spark"
+        android:fillType="evenOdd"
+        android:pathData="M24,16 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M32,16 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z" />
+</vector>

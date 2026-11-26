@@ -171,7 +171,11 @@ android {
         buildConfigField "boolean", "BENCHMARK", "false"
         // NEWTUBE(fdroid): -Pfdroid turns the in-app updater off - F-Droid delivers the updates, and
         // its inclusion policy forbids self-updates that aren't an explicit opt-in.
-        buildConfigField "boolean", "IN_APP_UPDATES", project.hasProperty('fdroid') ? "false" : "true"
+        // YOOTOOB(release): -PnoInAppUpdates does the same for YooToob builds signed with the fork's
+        // own key. The updater reads upstream ViewTube's feed, whose APKs Android would refuse to
+        // install over a differently signed YooToob (see docs/yootoob/MIGRATION_NOTES.md).
+        buildConfigField "boolean", "IN_APP_UPDATES",
+                (project.hasProperty('fdroid') || project.hasProperty('noInAppUpdates')) ? "false" : "true"
 
         // The content of Universal apk
         ndk {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Obsidian dark search field. -->
-    <color name="mobile_settings_search_bar">#16161D</color>
-    <color name="mobile_settings_search_highlight">#2EFFFFFF</color>
+    <color name="mobile_settings_search_bar">#1A1824</color>
+    <color name="mobile_settings_search_highlight">#3DA794FF</color>
 </resources>

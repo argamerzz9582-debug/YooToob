@@ -12,9 +12,9 @@ import androidx.core.content.ContextCompat;
 import com.liskovsoft.smartyoutubetv2.tv.R;
 
 /**
- * Shared Apple Obsidian design foundation helper for ViewTube.
+ * Shared YooToob glass-material helper: capsule, card and sheet backgrounds plus press feedback.
  *
- * <p>Exposes safe styling defaults and background drawables for Apple Obsidian capsule, card,
+ * <p>Exposes safe styling defaults and background drawables for glass capsule, card,
  * and bottom sheet surfaces. Compatible with Android 7.0+ (API 24+) without external dependencies.</p>
  */
 public final class GlassMaterial {
@@ -41,7 +41,7 @@ public final class GlassMaterial {
     }
 
     /**
-     * Resolves the drawable resource ID for an Obsidian capsule.
+     * Resolves the drawable resource ID for a glass capsule.
      */
     @DrawableRes
     public static int getCapsuleBackgroundRes() {
@@ -49,7 +49,7 @@ public final class GlassMaterial {
     }
 
     /**
-     * Resolves the drawable resource ID for an Obsidian card.
+     * Resolves the drawable resource ID for a glass card.
      */
     @DrawableRes
     public static int getCardBackgroundRes() {
@@ -57,7 +57,7 @@ public final class GlassMaterial {
     }
 
     /**
-     * Resolves the drawable resource ID for an Obsidian bottom sheet.
+     * Resolves the drawable resource ID for a bottom sheet.
      */
     @DrawableRes
     public static int getSheetBackgroundRes() {

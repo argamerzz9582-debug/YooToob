@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- NEWTUBE(theme): the dark palette - exactly the values the app shipped before the Theme
-         setting, moved here from values/ (which now holds the light ones). Only the colours that
-         differ between the themes are listed; see values/colors_mobile.xml for what they're for. -->
-    <!-- NEWTUBE(theme): Apple Obsidian Black dark palette.
-         Deep luxurious black backdrop with solid obsidian surfaces and crisp borders. -->
-    <color name="mobile_color_cast_active">#FF6B00</color>
-    <color name="mobile_color_background">#0F0F0F</color>
-    <color name="mobile_color_surface">#1E1E1E</color>
-    <color name="mobile_color_on_surface">#FFFFFF</color>
-    <color name="mobile_color_on_surface_secondary">#B3FFFFFF</color>
-    <color name="mobile_color_placeholder">#1A1A22</color>
+    <!-- YOOTOOB(theme): the dark palette. Only the colours that differ between the themes are
+         listed; see values/colors_mobile.xml for what each is for. Neutrals are tinted a
+         little toward the brand violet (hue ~280) so the page, cards and sheets read as one
+         material instead of four greys. Brand colours live in colors_yootoob.xml. -->
+    <color name="mobile_color_cast_active">@color/yoo_accent</color>
+    <color name="mobile_color_background">#0C0B12</color>
+    <color name="mobile_color_surface">#17151F</color>
+    <color name="mobile_color_on_surface">#F3F1FA</color>
+    <color name="mobile_color_on_surface_secondary">#B3F3F1FA</color>
+    <color name="mobile_color_placeholder">#1A1824</color>
     <!-- NEWTUBE(motion): the light that sweeps over skeleton blocks (ShimmerLinearLayout). -->
-    <color name="mobile_color_skeleton_highlight">#242430</color>
-    <color name="mobile_color_link">#FF6B00</color>
-    <color name="mobile_color_divider">#1F1F2B</color>
-    <color name="mobile_color_pill">#20202A</color>
-    <color name="mobile_color_subscribed_button">#282836</color>
-    <color name="mobile_color_comment_parent">#16161D</color>
-    <color name="mobile_color_comment_creator_pill">#262634</color>
-    <color name="mobile_color_menu_surface">#1C1C24</color>
-    <color name="mobile_color_comment_handle">#E1E1EA</color>
+    <color name="mobile_color_skeleton_highlight">#242231</color>
+    <color name="mobile_color_link">@color/yoo_accent</color>
+    <color name="mobile_color_divider">#221F2D</color>
+    <color name="mobile_color_pill">#1F1C2A</color>
+    <color name="mobile_color_subscribed_button">#2A2638</color>
+    <color name="mobile_color_comment_parent">#15131D</color>
+    <color name="mobile_color_comment_creator_pill">#272436</color>
+    <color name="mobile_color_menu_surface">#1B1925</color>
+    <color name="mobile_color_comment_handle">#E2DFEC</color>
 
-    <!-- Tokens added with the light theme; each is what that spot used before it. -->
-    <color name="mobile_color_card">#1E1E1E</color>
-    <color name="mobile_color_inverse_surface">#FFFFFF</color>
-    <color name="mobile_color_on_inverse_surface">#0B0B0E</color>
+    <!-- Tokens added with the light theme. -->
+    <color name="mobile_color_card">#17151F</color>
+    <color name="mobile_color_inverse_surface">#F3F1FA</color>
+    <color name="mobile_color_on_inverse_surface">#0C0B12</color>
     <color name="mobile_color_inverse_ripple">#33FFFFFF</color>
-    <color name="mobile_color_track">#282838</color>
-    <color name="mobile_color_field">#1B1B22</color>
-    <color name="mobile_color_background_scrim">#800B0B0E</color>
-    <color name="mobile_color_navigation_bar">#0B0B0E</color>
+    <color name="mobile_color_track">#2A2738</color>
+    <color name="mobile_color_field">#1A1824</color>
+    <color name="mobile_color_background_scrim">#800C0B12</color>
+    <color name="mobile_color_navigation_bar">#0C0B12</color>
 
     <!-- The shared edit dialogs keep the library's AppDialog colours (sharedutils / common). -->
-    <color name="dialog_bg_color">#141419</color>
-    <color name="dialog_text_color">#A2A2B4</color>
+    <color name="dialog_bg_color">#14121B</color>
+    <color name="dialog_text_color">#A9A4BA</color>
     <color name="dialog_hint_color">#4DFFFFFF</color>
     <color name="dialog_proxy_hint_color">#80FFFFFF</color>
 
-    <!-- Apple Obsidian Black design system: Solid obsidian dark surfaces, NO liquid glass. -->
-    <color name="mobile_glass_surface">#141419</color>
-    <color name="mobile_glass_surface_card">#16161D</color>
-    <color name="mobile_glass_surface_control">#1B1B22</color>
+    <!-- Surface layers: page < glass surface < card < control, each one step lighter. -->
+    <color name="mobile_glass_surface">#14121B</color>
+    <color name="mobile_glass_surface_card">#17151F</color>
+    <color name="mobile_glass_surface_control">#1C1A26</color>
     <color name="mobile_glass_highlight">@android:color/transparent</color>
-    <color name="mobile_glass_outline">#282836</color>
-    <color name="mobile_glass_outline_subtle">#1F1F2B</color>
-    <color name="mobile_glass_divider">#1F1F2B</color>
+    <color name="mobile_glass_outline">#2A2738</color>
+    <color name="mobile_glass_outline_subtle">#211E2C</color>
+    <color name="mobile_glass_divider">#211E2C</color>
     <color name="mobile_glass_shadow">#66000000</color>
 
-    <!-- Apple navigation bar colors: vibrant red active icon filling -->
-    <color name="mobile_floating_nav_active">#FF0033</color>
-    <color name="mobile_floating_nav_inactive">#8E8E93</color>
+    <!-- Navigation: the accent marks the current destination; inactive stays neutral. -->
+    <color name="mobile_floating_nav_active">@color/yoo_accent</color>
+    <color name="mobile_floating_nav_inactive">#8E8A9C</color>
 </resources>

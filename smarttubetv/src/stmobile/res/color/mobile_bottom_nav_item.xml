@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Bottom-nav icon/label tint: vibrant red #FF0033 when active/filled,
-     muted secondary when unselected.
--->
+<!-- Bottom-nav icon/label tint (full-width bar): the brand accent on the current destination,
+     the secondary ink elsewhere. The floating dock uses mobile_floating_nav_item. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="#FF0033" />
-    <item android:state_selected="true" android:color="#FF0033" />
+    <item android:state_checked="true" android:color="@color/yoo_accent" />
+    <item android:state_selected="true" android:color="@color/yoo_accent" />
     <item android:color="@color/mobile_color_on_surface_secondary" />
 </selector>

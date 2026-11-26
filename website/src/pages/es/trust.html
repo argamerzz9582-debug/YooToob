@@ -1,12 +1,12 @@
 <!--meta {
-  "title": "¿Es seguro ViewTube? Confianza y verificación",
-  "description": "Quién hace ViewTube, cómo se compilan y firman sus APK, qué envía la app y a dónde, y cómo comprobar cada cosa por tu cuenta."
+  "title": "¿Es seguro YooToob? Confianza y verificación",
+  "description": "Quién hace YooToob, cómo se compilan y firman sus APK, qué envía la app y a dónde, y cómo comprobar cada cosa por tu cuenta."
 } -->
     <section class="page-head">
       <div class="wrap">
         <p class="kicker">Seguridad</p>
         <h1>¿Es seguro? Compruébalo tú.</h1>
-        <p class="lead">ViewTube se instala desde fuera de Google Play, así que deberías poder verificar lo que instalas. Cada afirmación de esta página apunta a algo que puedes comprobar.</p>
+        <p class="lead">YooToob se instala desde fuera de Google Play, así que deberías poder verificar lo que instalas. Cada afirmación de esta página apunta a algo que puedes comprobar.</p>
       </div>
     </section>
 
@@ -14,8 +14,8 @@
       <div class="wrap two">
         <h2 id="who-title">Quién lo hace</h2>
         <div class="prose">
-          <p>ViewTube es un proyecto de código abierto independiente: mantenido activamente y diseñado específicamente para móviles Android. Es independiente y no oficial: no está afiliado a Google LLC ni a YouTube.</p>
-          <p id="ai"><strong>Hecho con IA.</strong> La mayor parte del código propio de ViewTube (la interfaz del móvil, el reproductor y la parte de red) se escribió con asistentes de programación con IA, Claude y Codex, y los commits lo indican. El responsable dirige y revisa ese trabajo. Cada <a href="https://github.com/Astrionix/ViewTube/tree/main/docs/releases">registro de versión</a> (en inglés) indica qué se comprobó en un móvil real, qué solo se comprobó con pruebas automáticas y qué sigue pendiente.</p>
+          <p>YooToob es un proyecto de código abierto independiente: mantenido activamente y diseñado específicamente para móviles Android. Es independiente y no oficial: no está afiliado a Google LLC ni a YouTube.</p>
+          <p id="ai"><strong>Hecho con IA.</strong> La mayor parte del código propio de YooToob (la interfaz del móvil, el reproductor y la parte de red) se escribió con asistentes de programación con IA, Claude y Codex, y los commits lo indican. El responsable dirige y revisa ese trabajo. Cada <a href="https://github.com/Astrionix/ViewTube/tree/main/docs/releases">registro de versión</a> (en inglés) indica qué se comprobó en un móvil real, qué solo se comprobó con pruebas automáticas y qué sigue pendiente.</p>
         </div>
       </div>
     </section>
@@ -25,7 +25,7 @@
         <h2 id="build-title">Cómo se compila y se firma</h2>
         <div class="prose">
           <p>Desde la 1.10.3, el <a href="https://github.com/Astrionix/ViewTube/blob/main/.github/workflows/release.yml">flujo de publicación</a> compila y firma cada APK en los servidores de GitHub a partir del código etiquetado. Después borra la clave de la máquina de compilación, rechaza cualquier APK firmado con otro certificado y sube los archivos a un borrador de versión que el responsable publica a mano. Hasta la 1.10.2, los APK se compilaban en el ordenador del responsable. Las compilaciones aún no son reproducibles.</p>
-          <p>Todos los APK están firmados con la misma clave (<code>CN=ViewTube, OU=ViewTube, O=aleixrodriala</code>). El SHA-256 de su certificado:</p>
+          <p>Todos los APK están firmados con la misma clave (<code>CN=ViewTube, OU=ViewTube, O=aleixrodriala</code>). La clave es anterior al nombre YooToob, por eso su titular aún dice ViewTube; mantenerla es lo que permite que las actualizaciones se instalen sobre versiones anteriores. El SHA-256 de su certificado:</p>
           <div class="copy">
             <code id="cert-sha" class="hash">2e:f9:9d:76:ed:fa:d9:88:ad:17:cd:ee:8b:a1:8c:63:4e:23:0f:e1:e3:cb:1f:dc:6c:db:02:49:37:0a:36:c9</code>
             <button class="copy-btn" type="button" data-copy="cert-sha" hidden><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span>Copiar</span></button>
@@ -76,7 +76,7 @@
       <div class="wrap two">
         <h2 id="updater-title">Cómo comprueba el actualizador una versión</h2>
         <div class="prose">
-          <p>Lee el manifiesto de actualización de las versiones de ViewTube en GitHub por HTTPS y descarga el APK de esa misma versión. Antes de ofrecerlo, <a href="https://github.com/aleixrodriala/SharedModules/blob/master/appupdatechecker2/src/main/java/com/liskovsoft/appupdatechecker2/AppUpdateChecker.java">comprueba</a> que el archivo es un paquete Android completo de ViewTube con la versión anunciada. Después se lo pasa al instalador de Android, que rechaza cualquier actualización que no esté firmada con la misma clave que la app instalada.</p>
+          <p>Lee el manifiesto de actualización de las versiones de YooToob en GitHub por HTTPS y descarga el APK de esa misma versión. Antes de ofrecerlo, <a href="https://github.com/aleixrodriala/SharedModules/blob/master/appupdatechecker2/src/main/java/com/liskovsoft/appupdatechecker2/AppUpdateChecker.java">comprueba</a> que el archivo es un paquete Android completo de YooToob con la versión anunciada. Después se lo pasa al instalador de Android, que rechaza cualquier actualización que no esté firmada con la misma clave que la app instalada.</p>
         </div>
       </div>
     </section>
@@ -85,7 +85,7 @@
       <div class="wrap two">
         <h2 id="source-title">El código</h2>
         <div class="prose">
-          <p>El código de ViewTube es público con <a href="https://github.com/Astrionix/ViewTube/blob/main/LICENSE">licencia MIT</a>: <a href="https://github.com/Astrionix/ViewTube">el repositorio de la app</a>, sus servicios multimedia y sus módulos compartidos. Las bibliotecas que usa conservan sus propias licencias, recogidas en <a href="https://github.com/Astrionix/ViewTube/blob/main/THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>. Cada versión está etiquetada, así que puedes leer el código exacto con el que se compiló.</p>
+          <p>El código de YooToob es público con <a href="https://github.com/Astrionix/ViewTube/blob/main/LICENSE">licencia MIT</a>: <a href="https://github.com/Astrionix/ViewTube">el repositorio de la app</a>, sus servicios multimedia y sus módulos compartidos. Las bibliotecas que usa conservan sus propias licencias, recogidas en <a href="https://github.com/Astrionix/ViewTube/blob/main/THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>. Cada versión está etiquetada, así que puedes leer el código exacto con el que se compiló.</p>
         </div>
       </div>
     </section>

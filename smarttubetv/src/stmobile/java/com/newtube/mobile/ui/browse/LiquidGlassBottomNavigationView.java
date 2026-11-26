@@ -5,31 +5,38 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.liskovsoft.smartyoutubetv2.tv.R;
 import com.newtube.mobile.ui.common.Haptics;
 
 /**
- * Apple Obsidian Black Floating Navigation Dock for ViewTube.
+ * YooToob floating glass dock (the "Floating bottom bar" appearance setting, on by default).
  *
- * <p>Implements a clean, solid Apple-grade dark obsidian navigation dock:
+ * <p>A restrained Liquid Glass layer, drawn with plain Canvas calls so it costs nothing per frame:
  * <ul>
- *   <li>Solid Obsidian Black surface (#141419) with restrained, subtle hairline outline.</li>
- *   <li>Zero liquid glass shaders, zero caustic reflections, zero water bubble distortion.</li>
- *   <li>Zero circular ripple bubbles on tap; flat and clean touch interaction.</li>
- *   <li>Discrete tactile Apple haptic tick on destination selection.</li>
- *   <li>Strictly hardware-accelerated Canvas &amp; Paint; zero per-frame object allocation.</li>
- *   <li>Clean toggleable mode: reverts to standard full-width bar when floating mode is disabled.</li>
+ *   <li>A translucent body (yoo_glass_dock_body, about 90% opaque) the feed scrolls under. No backdrop blur:
+ *       it does not exist below API 31, and a live blur over a scrolling grid is a full-screen
+ *       pass every frame. At that opacity the labels keep full contrast over any thumbnail.</li>
+ *   <li>A hairline outline, and a lit top edge (yoo_glass_dock_highlight) that fades out toward
+ *       the middle, which is what makes the surface read as a material rather than a flat pill.</li>
+ *   <li>A soft ambient shadow offset downward.</li>
+ *   <li>No ripple bubbles; a haptic tick on selection.</li>
  * </ul>
+ * All colours are resources with a night side (values/colors_yootoob.xml), so the dock follows
+ * the Theme setting. Shaders and paths are rebuilt only when the size or configuration changes.</p>
  */
 public class LiquidGlassBottomNavigationView extends BottomNavigationView {
 
@@ -43,8 +50,8 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
     private final Paint mShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mDockBodyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mDockOutlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-    private boolean mIsDarkTheme = true;
+    private final Paint mHighlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final RectF mHighlightRect = new RectF();
 
     public LiquidGlassBottomNavigationView(@NonNull Context context) {
         this(context, null);
@@ -63,19 +70,16 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
         setWillNotDraw(false);
         setBackground(null);
         setBackgroundColor(Color.TRANSPARENT);
-        updateThemeMode();
 
         mDockOutlinePaint.setStyle(Paint.Style.STROKE);
         mDockOutlinePaint.setStrokeWidth(dp(1f));
+        mHighlightPaint.setStyle(Paint.Style.STROKE);
+        mHighlightPaint.setStrokeWidth(dp(1f));
+        updateColors();
 
         // Disable circular ripple bubbles
         setItemRippleColor(ColorStateList.valueOf(Color.TRANSPARENT));
         setItemBackground(null);
-    }
-
-    private void updateThemeMode() {
-        int nightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        mIsDarkTheme = (nightMode == Configuration.UI_MODE_NIGHT_YES);
     }
 
     public void setFloatingEnabled(boolean enabled) {
@@ -83,7 +87,7 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
             return;
         }
         mFloatingEnabled = enabled;
-        updateThemeMode();
+        updateColors();
 
         if (mFloatingEnabled) {
             setBackground(null);
@@ -102,8 +106,8 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        updateThemeMode();
         updateColors();
+        updateGeometry(getWidth(), getHeight());
         invalidate();
     }
 
@@ -124,20 +128,21 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
 
         mCapsulePath.reset();
         mCapsulePath.addRoundRect(mCapsuleRect, pillRadius, pillRadius, Path.Direction.CW);
+
+        // The lit edge: the same capsule inset by half a stroke, its stroke fading from the
+        // highlight colour at the top to nothing a third of the way down.
+        float inset = dp(0.5f);
+        mHighlightRect.set(inset, inset, w - inset, h - inset);
+        int highlight = ContextCompat.getColor(getContext(), R.color.yoo_glass_dock_highlight);
+        mHighlightPaint.setShader(new LinearGradient(0f, 0f, 0f, h * 0.35f,
+                highlight, highlight & 0x00FFFFFF, Shader.TileMode.CLAMP));
     }
 
     private void updateColors() {
-        if (mIsDarkTheme) {
-            // Apple Obsidian Black Palette: Translucent deep obsidian backdrop and surface
-            mDockBodyPaint.setColor(Color.argb(235, 20, 20, 25));
-            mDockOutlinePaint.setColor(Color.argb(80, 255, 255, 255));
-            mShadowPaint.setColor(Color.argb(80, 0, 0, 0));
-        } else {
-            // Apple System Light Palette: Translucent frosted white glass surface
-            mDockBodyPaint.setColor(Color.argb(238, 255, 255, 255));
-            mDockOutlinePaint.setColor(Color.argb(35, 0, 0, 0));
-            mShadowPaint.setColor(Color.argb(25, 0, 0, 0));
-        }
+        Context context = getContext();
+        mDockBodyPaint.setColor(ContextCompat.getColor(context, R.color.yoo_glass_dock_body));
+        mDockOutlinePaint.setColor(ContextCompat.getColor(context, R.color.yoo_glass_dock_outline));
+        mShadowPaint.setColor(ContextCompat.getColor(context, R.color.yoo_glass_dock_shadow));
     }
 
     @Override
@@ -180,14 +185,15 @@ public class LiquidGlassBottomNavigationView extends BottomNavigationView {
 
         float pillRadius = h / 2f;
 
-        // 1. Ambient Apple Drop Shadow
+        // 1. Ambient shadow, offset down so the dock reads as lifted off the feed
         canvas.drawRoundRect(0f, dp(2f), (float) w, (float) h + dp(3f), pillRadius, pillRadius, mShadowPaint);
 
-        // 2. Solid Apple Obsidian Body (pure obsidian black surface, no liquid, no shaders)
+        // 2. Translucent glass body
         canvas.drawRoundRect(mCapsuleRect, pillRadius, pillRadius, mDockBodyPaint);
 
-        // 3. Hairline Outline
+        // 3. Hairline outline, then the lit top edge over it
         canvas.drawRoundRect(mCapsuleRect, pillRadius, pillRadius, mDockOutlinePaint);
+        canvas.drawRoundRect(mHighlightRect, pillRadius, pillRadius, mHighlightPaint);
 
         // 4. Clip children strictly within the capsule
         canvas.save();
