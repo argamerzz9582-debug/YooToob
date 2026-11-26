@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
+  <!-- YooToob master icon. Two overlapping rings, the "oo" of the name, on the brand violet.
+       Vector drawables in smarttubetv/src/stmobile/res/drawable/ic_launcher_*.xml and
+       ic_yootoob_logo.xml use the same geometry; regenerate the PNGs with
+       tools/yootoob/render_icons.mjs after changing this file. -->
+  <defs><clipPath id="m"><rect x="0" y="0" width="108" height="108" rx="26"/></clipPath></defs>
+  <g clip-path="url(#m)">
+    <path fill="#5B3DF5" d="M0,0h108v108h-108z"/>
+    <path fill="#4E31E6" d="M108,24 L108,108 L24,108 Z"/>
+    <path fill="#FFFFFF" fill-rule="evenodd" d="M26,54 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M34,54 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z"/>
+    <path fill="#FF5C8A" fill-rule="evenodd" d="M50,54 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z M58,54 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0 Z"/>
+  </g>
+</svg>
